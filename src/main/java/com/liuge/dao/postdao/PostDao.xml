@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liuge.dao.postdao.PostDao">
+    <select id="findAllPost" resultType="com.liuge.pojo.Post">
+        select * from post;
+    </select>
+    <select id="findPostById" resultType="com.liuge.pojo.Post">
+        select * from post where postid = #{postid};
+    </select>
+    <select id="findPostByName" parameterType="java.lang.String" resultType="com.liuge.pojo.Post">
+        select * from post where title like concat('%',#{title},'%');
+    </select>
+    <select id="findRepostByPostid" parameterType="java.lang.Integer" resultType="com.liuge.pojo.Repost">
+        select * from repost where postid = #{postid};
+    </select>
+    <update id="updatePost" parameterType="com.liuge.pojo.Post">
+        update post set title = #{title},postcontent = #{postcontent} where postid = #{postid};
+    </update>
+    <delete id="deletePost" parameterType="java.lang.Integer">
+         SET FOREIGN_KEY_CHECKS = 0;
+         delete from repost where postid = #{postid};
+         delete from post where postid = #{postid};
+         SET FOREIGN_KEY_CHECKS =1;
+    </delete>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liuge.dao.repostdao.RepostDao">
+    <select id="findAllRepost" resultType="com.liuge.pojo.Repost">
+        select * from repost;
+    </select>
+    <select id="findRepostById" resultType="com.liuge.pojo.Repost">
+        select * from repost where repostid = #{repostid};
+    </select>
+    <update id="updateRepost" parameterType="com.liuge.pojo.Repost">
+        update repost set content = #{content} where repostid = #{repostid};
+    </update>
+    <delete id="deleteRepost" parameterType="java.lang.Integer" >
+        SET FOREIGN_KEY_CHECKS=0;
+        delete from repost where repostid = #{repostid};
+        SET FOREIGN_KEY_CHECKS =1;
+    </delete>
+</mapper>

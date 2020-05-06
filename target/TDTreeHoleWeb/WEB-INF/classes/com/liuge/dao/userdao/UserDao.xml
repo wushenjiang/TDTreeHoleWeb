@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liuge.dao.userdao.UserDao">
+    <select id="findAllUser" resultType="com.liuge.pojo.User">
+        select * from user;
+    </select>
+    <select id="findUserById" resultType="com.liuge.pojo.User">
+        select * from user where userid = #{userid};
+    </select>
+    <select id="findUserByName" parameterType="java.lang.String" resultType="com.liuge.pojo.User">
+        select * from user where username like concat('%',#{username},'%');
+    </select>
+    <select id="findPostByUserid" parameterType="java.lang.Integer" resultType="com.liuge.pojo.Post">
+        select * from post where userid = #{userid};
+    </select>
+    <select id="findRepostByUserid" parameterType="java.lang.Integer" resultType="com.liuge.pojo.Repost">
+        select * from repost where userid = #{userid};
+    </select>
+    <update id="updateUser" parameterType="com.liuge.pojo.User">
+        update user set password = #{password} where userid = #{userid};
+    </update>
+    <delete id="deleteUser" parameterType="java.lang.Integer" >
+        SET FOREIGN_KEY_CHECKS=0;
+        delete from post where userid = #{userid};
+        delete from repost where userid = #{userid};
+        delete from user where userid = #{userid};
+        SET FOREIGN_KEY_CHECKS=1;
+    </delete>
+</mapper>
